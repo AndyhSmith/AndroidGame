@@ -1,8 +1,12 @@
 package com.example.androidgame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -17,22 +21,62 @@ import androidx.core.content.ContextCompat;
  */
 class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Player player;
+    private final Ball ball;
+    private final Collectible point;
     private GameLoop gameLoop;
+
+    private int height;
+    private int width;
+
+    private int score;
+
+    private String screen;
+    private StartMenu startMenu;
+    private HighScoreMenu highScoreMenu;
+    private StatMenu statMenu;
+
+    private Background background;
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         // Handle Touch Events
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                player.setPosition((double) event.getX(), (double) event.getY());
-                return true;
+                if (screen == "start") {
+                    if (startMenu.checkPressStartButton(event.getX(), event.getY())) {
+                        screen = "play";
+                        return true;
+                    }
+                    else if (startMenu.checkPressHighScoreButton(event.getX(), event.getY())) {
+                        screen = "highscore";
+                        return true;
+                    }
+                    else if (startMenu.checkPressStatButton(event.getX(), event.getY())) {
+                        screen = "stat";
+                        return true;
+                    }
+                }
+                else if (screen == "play") {
+                    player.setStartPosition((double) event.getX(), (double) event.getY());
+                    return true;
+                }
+                else if (screen == "highscore") {
+                    if (highScoreMenu.checkPressBackButton(event.getX(), event.getY())) {
+                        screen = "start";
+                        return true;
+                    }
+                }
+                else if (screen == "stat") {
+                    if (statMenu.checkPressBackButton(event.getX(), event.getY())) {
+                        screen = "start";
+                        return true;
+                    }
+                }
             case MotionEvent.ACTION_MOVE:
-                player.setPosition((double) event.getX(), (double) event.getY());
+                player.setEndPosition((double) event.getX(), (double) event.getY());
                 return true;
         }
-
         return super.onTouchEvent(event);
     }
 
@@ -40,12 +84,28 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         getContext();
 
+
+        // Get Screen Size
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
         gameLoop = new GameLoop(this, surfaceHolder);
+        ball = new Ball(getContext(), width / 2,100,50);
+        player = new Player(getContext(), width / 2, height - 100, 100);
+        point = new Collectible(getContext(), width, height, 30);
 
-        player = new Player(getContext(), 500,500,30);
+        startMenu = new StartMenu(getContext(), width, height);
+        highScoreMenu = new HighScoreMenu(getContext(), width, height);
+        statMenu = new StatMenu(getContext(), width, height);
+
+        screen = "start";
+        background = new Background(getContext(), screen, width, height);
+
 
         setFocusable(true);
     }
@@ -53,6 +113,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         gameLoop.startLoop();
+
     }
 
     @Override
@@ -67,11 +128,29 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-        drawUPS(canvas);
-        drawFPS(canvas);
 
-        player.draw(canvas);
+
+
+        super.draw(canvas);
+        background.draw(canvas);
+//        drawUPS(canvas);
+//        drawFPS(canvas);
+
+        if (screen == "play") {
+            player.draw(canvas);
+            ball.draw(canvas);
+            point.draw(canvas);
+            drawScore(canvas);
+        }
+        else if (screen == "start") {
+            startMenu.draw(canvas);
+        }
+        else if (screen == "highscore") {
+            highScoreMenu.draw(canvas);
+        }
+        else if (screen == "stat") {
+            statMenu.draw(canvas);
+        }
     }
 
     public void drawUPS(Canvas canvas) {
@@ -90,9 +169,38 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         paint.setColor(color);
         paint.setTextSize(50);
         canvas.drawText("FPS: " + averageFPS, 100, 200, paint);
+
+    }
+
+    public void drawScore(Canvas canvas) {
+        String scoreStr = Double.toString(score);
+        Paint paint = new Paint();
+        int color = ContextCompat.getColor(getContext(), R.color.magenta);
+        paint.setColor(color);
+        paint.setTextSize(50);
+        canvas.drawText("Score: " + score, 100, 100, paint);
     }
 
     public void update() {
-        player.update();
+
+        background.update();
+
+        if (screen == "play") {
+            player.update();
+            ball.update();
+            point.update();
+
+            ball.checkCollision(player);
+            if (ball.checkCollision(point)) {
+                this.score += 1;
+            }
+
+            if (ball.checkOutOfBounds(width, height)) {
+                this.screen = "start";
+                this.score = 0;
+            }
+
+
+        }
     }
 }

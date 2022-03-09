@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="magenta">#FF09FF</color>
     <color name="player">#FF0000</color>
+    <color name="ball">#0000FF</color>
+    <color name="aim">#a0f2ed</color>
+    <color name="score">#fac800</color>
+    <color name="text">#fac800</color>
+    <color name="backgroundSky">#87ceeb</color>
+
+
+
 </resources>
