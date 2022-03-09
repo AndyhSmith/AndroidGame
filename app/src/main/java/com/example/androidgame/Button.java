@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 public class Button {
     private double height;
@@ -40,13 +42,18 @@ public class Button {
         textColor.setColor(color2);
 //        textColor.setTextAlign(Paint.Align.CENTER);
         textColor.setTextSize(this.textSize);
+
+        Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
+        textColor.setTypeface(customFont);
         textColor.getTextBounds(text, 0, text.length(), textBounds);
+
+
 
     }
 
     public void draw(Canvas canvas) {
         canvas.drawRect((float) (positionX - (width / 2)), (float) (positionY - (height / 2)), (float) (positionX + (width / 2)), (float) (positionY + (height / 2)), paint);
-        canvas.drawText(text, (float) positionX - textBounds.exactCenterX(), (float) positionY - textBounds.exactCenterY(), textColor);
+        canvas.drawText(text, (float) ((positionX) - textBounds.exactCenterX()), (float) positionY - textBounds.exactCenterY(), textColor);
 
 //        canvas.drawText(text, (float) positionX, (float) positionY, textColor);
     }

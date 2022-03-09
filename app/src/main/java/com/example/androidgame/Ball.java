@@ -33,7 +33,7 @@ public class Ball {
         this.positionX = positionX;
         this.positionY = positionY;
         this.radius = radius;
-        this.gravity = .2;
+        this.gravity = .15;
         this.xSpeed = 0;
         this.ySpeed = 0;
 

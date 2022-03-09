@@ -15,6 +15,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 
 /**
@@ -36,6 +37,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private StartMenu startMenu;
     private HighScoreMenu highScoreMenu;
     private StatMenu statMenu;
+    private AchievementsMenu achievementsMenu;
 
     private Background background;
     private CloudFactory cloudFactory;
@@ -61,6 +63,10 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                         screen = "stat";
                         return true;
                     }
+                    else if (startMenu.checkPressAchievementsButton(event.getX(), event.getY())) {
+                        screen = "achievements";
+                        return true;
+                    }
                 }
                 else if (screen == "play") {
                     player.setStartPosition((double) event.getX(), (double) event.getY());
@@ -73,6 +79,12 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
                 else if (screen == "stat") {
+                    if (statMenu.checkPressBackButton(event.getX(), event.getY())) {
+                        screen = "start";
+                        return true;
+                    }
+                }
+                else if (screen == "achievements") {
                     if (statMenu.checkPressBackButton(event.getX(), event.getY())) {
                         screen = "start";
                         return true;
@@ -107,6 +119,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         startMenu = new StartMenu(getContext(), width, height);
         highScoreMenu = new HighScoreMenu(getContext(), width, height);
         statMenu = new StatMenu(getContext(), width, height);
+        achievementsMenu = new AchievementsMenu(getContext(), width, height);
 
         screen = "start";
         background = new Background(getContext(), screen, width, height);
@@ -114,9 +127,11 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         cloudFactory = new CloudFactory(getContext(), width, height);
 
         paintScore = new Paint();
-        int colorScore = ContextCompat.getColor(getContext(), R.color.magenta);
+        int colorScore = ContextCompat.getColor(getContext(), R.color.black);
         paintScore.setColor(colorScore);
-        paintScore.setTextSize(100);
+        paintScore.setTextSize(150);
+        Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
+        paintScore.setTypeface(customFont);
 
 
 
@@ -167,6 +182,9 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         }
         else if (screen == "stat") {
             statMenu.draw(canvas);
+        }
+        else if (screen == "achievements") {
+            achievementsMenu.draw(canvas);
         }
     }
 

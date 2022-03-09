@@ -3,8 +3,10 @@ package com.example.androidgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 public class StatMenu {
 
@@ -14,7 +16,7 @@ public class StatMenu {
     public StatMenu(Context context, double width, double height) {
 
         this.context = context;
-        backButton = new Button(context, 100, 400, width / 2, height -100, "Back", 50);
+        backButton = new Button(context, 100, 400, width / 2, height -150, "Back", 50);
 
 
     }
@@ -25,7 +27,9 @@ public class StatMenu {
         int color = ContextCompat.getColor(context, R.color.text);
         paint.setColor(color);
         paint.setTextSize(100);
-        canvas.drawText("Stats", canvas.getWidth() / 2, 200, paint);
+        Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
+        paint.setTypeface(customFont);
+        canvas.drawText("Equips", canvas.getWidth() / 2, 200, paint);
 
         backButton.draw(canvas);
     }

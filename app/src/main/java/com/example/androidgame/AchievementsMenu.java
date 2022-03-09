@@ -8,12 +8,12 @@ import android.graphics.Typeface;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-public class HighScoreMenu {
+public class AchievementsMenu {
 
     private Button backButton;
     private Context context;
 
-    public HighScoreMenu(Context context, double width, double height) {
+    public AchievementsMenu(Context context, double width, double height) {
 
         this.context = context;
         backButton = new Button(context, 100, 400, width / 2, height -150, "Back", 50);
@@ -29,7 +29,7 @@ public class HighScoreMenu {
         paint.setTextSize(100);
         Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
         paint.setTypeface(customFont);
-        canvas.drawText("High Scores", canvas.getWidth() / 2, 200, paint);
+        canvas.drawText("Achievements", canvas.getWidth() / 2, 200, paint);
 
         backButton.draw(canvas);
     }

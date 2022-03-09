@@ -21,9 +21,9 @@ public class Collectible {
     private Paint paint;
 
     public Collectible (Context context, int width, int height, double radius) {
-        leftRightPadding = 20 + radius;
-        topPadding = 50 + radius;
-        bottomPadding = 100 + radius;
+        leftRightPadding = 100 + radius;
+        topPadding = 100 + radius;
+        bottomPadding = 100 + 90 + radius;
         this.positionX = 0;
         this.positionY = 0;
         this.width = width;
