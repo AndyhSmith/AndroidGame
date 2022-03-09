@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,6 +29,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private int height;
     private int width;
 
+    private Paint paintScore;
     private int score;
 
     private String screen;
@@ -36,6 +38,9 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private StatMenu statMenu;
 
     private Background background;
+    private CloudFactory cloudFactory;
+
+
 
 
     @Override
@@ -106,6 +111,14 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         screen = "start";
         background = new Background(getContext(), screen, width, height);
 
+        cloudFactory = new CloudFactory(getContext(), width, height);
+
+        paintScore = new Paint();
+        int colorScore = ContextCompat.getColor(getContext(), R.color.magenta);
+        paintScore.setColor(colorScore);
+        paintScore.setTextSize(100);
+
+
 
         setFocusable(true);
     }
@@ -133,17 +146,21 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         super.draw(canvas);
         background.draw(canvas);
-//        drawUPS(canvas);
-//        drawFPS(canvas);
+        drawUPS(canvas);
+        drawFPS(canvas);
 
         if (screen == "play") {
+            cloudFactory.draw(canvas);
             player.draw(canvas);
             ball.draw(canvas);
             point.draw(canvas);
             drawScore(canvas);
+
         }
         else if (screen == "start") {
+            cloudFactory.draw(canvas);
             startMenu.draw(canvas);
+
         }
         else if (screen == "highscore") {
             highScoreMenu.draw(canvas);
@@ -158,32 +175,28 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         Paint paint = new Paint();
         int color = ContextCompat.getColor(getContext(), R.color.magenta);
         paint.setColor(color);
-        paint.setTextSize(50);
-        canvas.drawText("UPS: " + averageUPS, 100, 100, paint);
+        paint.setTextSize(30);
+        canvas.drawText("UPS: " + averageUPS, 10, 60, paint);
     }
 
     public void drawFPS(Canvas canvas) {
         String averageFPS = Double.toString(gameLoop.getAverageFPS());
         Paint paint = new Paint();
-        int color = ContextCompat.getColor(getContext(), R.color.magenta);
+        int color = ContextCompat.getColor(getContext(), R.color.black);
         paint.setColor(color);
-        paint.setTextSize(50);
-        canvas.drawText("FPS: " + averageFPS, 100, 200, paint);
+        paint.setTextSize(30);
+        canvas.drawText("FPS: " + averageFPS, 10, 30, paint);
 
     }
 
     public void drawScore(Canvas canvas) {
-        String scoreStr = Double.toString(score);
-        Paint paint = new Paint();
-        int color = ContextCompat.getColor(getContext(), R.color.magenta);
-        paint.setColor(color);
-        paint.setTextSize(50);
-        canvas.drawText("Score: " + score, 100, 100, paint);
+        canvas.drawText(Integer.toString(score), width / 2, 100, paintScore);
     }
 
     public void update() {
 
         background.update();
+        cloudFactory.update();
 
         if (screen == "play") {
             player.update();

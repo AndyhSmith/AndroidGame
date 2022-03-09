@@ -21,7 +21,8 @@ public class Background {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawRect(0, 0, (float) width, (float) height, backgroundSky);
+        canvas.drawPaint(backgroundSky);
+//        canvas.drawRect(0, 0, (float) width, (float) height, backgroundSky);
 
     }
 

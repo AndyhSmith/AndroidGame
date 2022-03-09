@@ -16,6 +16,7 @@ public class StatMenu {
         this.context = context;
         backButton = new Button(context, 100, 400, width / 2, height -100, "Back", 50);
 
+
     }
 
     public void draw(Canvas canvas) {

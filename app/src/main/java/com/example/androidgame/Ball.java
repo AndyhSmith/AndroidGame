@@ -43,24 +43,25 @@ public class Ball {
         int color = ContextCompat.getColor(context, R.color.ball);
         paint.setColor(color);
 
-        image = context.getResources().getDrawable(R.drawable.hampster);
+        image = context.getResources().getDrawable(R.drawable.balloonred63x75);
     }
 
     public void draw(Canvas canvas) {
 //        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
 
         Rect imageBounds = new Rect();
-        imageBounds.left = (int) (positionX - radius);
-        imageBounds.top = (int) (positionY - radius);
-        imageBounds.right = (int) (positionX + radius);
-        imageBounds.bottom = (int) (positionY + radius);
+        imageBounds.left = (int) (positionX - 42);
+        imageBounds.top = (int) (positionY - 50);
+        imageBounds.right = (int) (positionX + 42);
+        imageBounds.bottom = (int) (positionY + 50);
 
         image.setBounds(imageBounds);
 
-        canvas.save();
-        canvas.rotate((float) this.rotation, (float) this.positionX, (float) this.positionY);
+//        canvas.save();
+//        canvas.rotate((float) this.rotation, (float) this.positionX, (float) this.positionY);
         image.draw(canvas);
-        canvas.restore();
+
+//        canvas.restore();
 
     }
 

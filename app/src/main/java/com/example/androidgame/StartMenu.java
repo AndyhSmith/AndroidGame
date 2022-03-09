@@ -3,32 +3,59 @@ package com.example.androidgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 
 import androidx.core.content.ContextCompat;
 
 public class StartMenu {
 
-    private Button startButton;
+    private ButtonImage startButton;
     private Context context;
     private Button highScoreButton;
     private Button statButton;
+    private int width;
+    private int height;
+
+    private Drawable image;
 
     public StartMenu(Context context, double width, double height) {
 
+
+        this.height = (int) height;
+        this.width = (int) width;
         this.context = context;
-        startButton = new Button(context, 300, 400, width / 2, height / 2, "Start", 100);
+
         statButton = new Button(context, 100, 500, width / 2, height - 400, "Stats", 50);
         highScoreButton = new Button(context, 100, 500, width / 2, height - 200, "High Scores", 50);
+
+        Drawable startImage = context.getResources().getDrawable(R.drawable.start849x232);
+
+        startButton = new ButtonImage(context, 232, 850, width / 2, height / 2, startImage);
+
+
+        image = context.getResources().getDrawable(R.drawable.title810x162);
+        image.getBounds();
 
     }
 
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setTextAlign(Paint.Align.CENTER);
-        int color = ContextCompat.getColor(context, R.color.text);
-        paint.setColor(color);
-        paint.setTextSize(100);
-        canvas.drawText("Bouncing Ball", canvas.getWidth() / 2, 200, paint);
+//        Paint paint = new Paint();
+//        paint.setTextAlign(Paint.Align.CENTER);
+//        int color = ContextCompat.getColor(context, R.color.text);
+//        paint.setColor(color);
+//        paint.setTextSize(100);
+//        canvas.drawText("Bouncing Ball", canvas.getWidth() / 2, 200, paint);
+
+
+        Rect imageBounds = new Rect();
+        imageBounds.left = (int) (width/2 - 405);
+        imageBounds.top = (int) (200);
+        imageBounds.right = (int) (width/2 + 405);
+        imageBounds.bottom = (int) (362);
+
+        image.setBounds(imageBounds);
+        image.draw(canvas);
 
         startButton.draw(canvas);
         highScoreButton.draw(canvas);

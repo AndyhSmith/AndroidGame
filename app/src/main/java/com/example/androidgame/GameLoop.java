@@ -64,13 +64,13 @@ public class GameLoop extends Thread{
             // Pause game loop to not exceed target UPS
             elapsedTime =  System.currentTimeMillis() - startTime;
             sleepTime = (long) (updateCount*UPS_PERIOD - elapsedTime);
-            if (sleepTime > 0) {
-                try {
-                    sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+//            if (sleepTime > 0) {
+//                try {
+//                    sleep(sleepTime);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             // Skip frames to keep up with target UPS
             while(sleepTime < 0 && updateCount < MAX_UPS - 1) {
