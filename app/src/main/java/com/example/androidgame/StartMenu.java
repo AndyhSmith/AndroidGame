@@ -15,6 +15,7 @@ public class StartMenu {
     private Button highScoreButton;
     private Button statButton;
     private Button achievementsButton;
+    private Button settingsButton;
 
     private int width;
     private int height;
@@ -28,13 +29,15 @@ public class StartMenu {
         this.width = (int) width;
         this.context = context;
 
-        statButton = new Button(context, 100, 500, width / 2, height - 450, "Equips", 50);
-        highScoreButton = new Button(context, 100, 500, width / 2, height - 150, "High Scores", 50);
-        achievementsButton = new Button(context, 100, 500, width / 2, height - 300, "Achievements", 50);
+        statButton = new Button(context, 128, 320, width / 3, height - 400, "Equips", 50);
+        highScoreButton = new Button(context, 128, 320, width / 3, height - 250, "High Scores", 50);
+        achievementsButton = new Button(context, 128, 320, (width / 3) * 2, height - 400, "Achievements", 50);
+        settingsButton = new Button(context, 128, 320, (width / 3) * 2, height - 250, "Settings", 50);
+
 
         Drawable startImage = context.getResources().getDrawable(R.drawable.start849x232);
 
-        startButton = new ButtonImage(context, 232, 850, width / 2, height / 2, startImage);
+        startButton = new ButtonImage(context, 116, 424, width / 2, height / 2, startImage);
 
 
         image = context.getResources().getDrawable(R.drawable.title810x162);
@@ -64,6 +67,7 @@ public class StartMenu {
         highScoreButton.draw(canvas);
         statButton.draw(canvas);
         achievementsButton.draw(canvas);
+        settingsButton.draw(canvas);
     }
 
     public boolean checkPressStartButton(float x, float y) {
@@ -80,5 +84,9 @@ public class StartMenu {
 
     public boolean checkPressAchievementsButton(float x, float y) {
         return achievementsButton.checkPress(x, y);
+    }
+
+    public boolean checkPressSettingsButton(float x, float y) {
+        return settingsButton.checkPress(x, y);
     }
 }

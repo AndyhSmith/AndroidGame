@@ -13,15 +13,22 @@ public class HighScoreMenu {
     private Button backButton;
     private Context context;
 
+    private Paint text;
+
     public HighScoreMenu(Context context, double width, double height) {
 
         this.context = context;
-        backButton = new Button(context, 100, 400, width / 2, height -150, "Back", 50);
+        backButton = new Button(context, 128, 320, width / 2, height -150, "Back", 50);
+
+        text = new Paint();
+        text.setTextSize(80);
+        Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
+        text.setTypeface(customFont);
 
 
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, int highscore, int highscoreLead, int highscoreGravity) {
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
         int color = ContextCompat.getColor(context, R.color.text);
@@ -29,7 +36,11 @@ public class HighScoreMenu {
         paint.setTextSize(100);
         Typeface customFont = ResourcesCompat.getFont(context, R.font.vt323);
         paint.setTypeface(customFont);
-        canvas.drawText("High Scores", canvas.getWidth() / 2, 200, paint);
+        canvas.drawText("High Scores", canvas.getWidth() / 2, 100, paint);
+
+        canvas.drawText("High Score: " + Integer.toString(highscore), 20, 200, text);
+        canvas.drawText("High Score Lead: " + Integer.toString(highscoreLead), 20, 300, text);
+        canvas.drawText("High Score Gravity: " + Integer.toString(highscoreGravity), 20, 400, text);
 
         backButton.draw(canvas);
     }

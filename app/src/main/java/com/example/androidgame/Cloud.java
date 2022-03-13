@@ -44,7 +44,7 @@ public class Cloud {
 
         if (positionX + imageWidth < 0) {
             positionX = width + (int) (Math.random() * 500);
-            positionY = (int) (Math.random() * (height - 90 - imageHeight));
+            positionY = (int) (Math.random() * (height - 300 - imageHeight));
         }
     }
 

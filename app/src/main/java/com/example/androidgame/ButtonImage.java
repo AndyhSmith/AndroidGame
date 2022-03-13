@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 public class ButtonImage extends Button {
 
@@ -13,10 +14,11 @@ public class ButtonImage extends Button {
         super(context, height, width, positionX, positionY, "", 0);
         this.image = image;
         Rect imageBounds = new Rect();
-        imageBounds.left = (int) (positionX - 424);
-        imageBounds.top = (int) (positionY - 116);
-        imageBounds.right = (int) (positionX + 425);
-        imageBounds.bottom = (int) (positionY + 116);
+        Log.d("width", Double.toString(width));
+        imageBounds.left = (int) (positionX - width);
+        imageBounds.top = (int) (positionY - height);
+        imageBounds.right = (int) (positionX + width);
+        imageBounds.bottom = (int) (positionY + height);
         image.setBounds(imageBounds);
     }
 
