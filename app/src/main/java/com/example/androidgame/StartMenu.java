@@ -29,7 +29,7 @@ public class StartMenu {
         this.width = (int) width;
         this.context = context;
 
-        statButton = new Button(context, 128, 320, width / 3, height - 400, "Equips", 50);
+        statButton = new Button(context, 128, 320, width / 3, height - 400, "Balloons", 50);
         highScoreButton = new Button(context, 128, 320, width / 3, height - 250, "High Scores", 50);
         achievementsButton = new Button(context, 128, 320, (width / 3) * 2, height - 400, "Achievements", 50);
         settingsButton = new Button(context, 128, 320, (width / 3) * 2, height - 250, "Settings", 50);

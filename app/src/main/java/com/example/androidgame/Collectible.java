@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -66,10 +67,37 @@ public class Collectible {
 
     public void draw(Canvas canvas) {
 //        canvas.drawCircle((float) positionX, (float) positionY, (float) radius, paint);
+        Rect imageBounds = new Rect();
+        imageBounds.left = (int) (positionX - (imageWidth / 2));
+        imageBounds.top = (int) (positionY - (imageHeight / 2));
+        imageBounds.right = (int) (positionX + (imageWidth / 2));
+        imageBounds.bottom = (int) (positionY + (imageHeight / 2));
+        image.setBounds(imageBounds);
         image.draw(canvas);
     }
 
-    public void update() {
+    public void update(double xSpeed, double ySpeed, double posX, double posY, int width, int height) {
+        double d = Math.pow(this.positionX - posX, 2) + Math.pow(this.positionY - posY, 2);
+        if (d < 60000) {
+            int speed = 5;
+            if (this.positionX > 0 + radius && this.positionX < width - radius) {
+//                positionX += xSpeed / 2;
+                if (this.positionX > posX) {
+                    this.positionX += speed;
+                } else if (this.positionX < posX) {
+                    this.positionX -= speed;
+                }
+            }
+            if (this.positionY > 0 + radius && this.positionY < height - radius - 60) {
+//                positionY += ySpeed / 2;
+                if (this.positionY > posY) {
+                    this.positionY += speed;
+                } else if (this.positionY < posY) {
+                    this.positionY -= speed;
+                }
+            }
+        }
+
     }
 
     public double getPositionX() {

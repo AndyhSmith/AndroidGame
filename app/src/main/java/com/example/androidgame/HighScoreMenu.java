@@ -28,7 +28,9 @@ public class HighScoreMenu {
 
     }
 
-    public void draw(Canvas canvas, int highscore, int highscoreLead, int highscoreGravity) {
+    public void draw(Canvas canvas, int highScore, int highScoreLead, int highScoreGravity, int highScoreMoon, int highScoreGlitch, int highScoreHeart, int highScoreToxic,
+                     int highScoreVoid, int highScoreLight, int highScoreQuantum, int highScorePicasso, int highScoreGlider,
+                     int highScoreMagic, int highScoreMagnet, int highScoreAbyss) {
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
         int color = ContextCompat.getColor(context, R.color.text);
@@ -38,9 +40,25 @@ public class HighScoreMenu {
         paint.setTypeface(customFont);
         canvas.drawText("High Scores", canvas.getWidth() / 2, 100, paint);
 
-        canvas.drawText("High Score: " + Integer.toString(highscore), 20, 200, text);
-        canvas.drawText("High Score Lead: " + Integer.toString(highscoreLead), 20, 300, text);
-        canvas.drawText("High Score Gravity: " + Integer.toString(highscoreGravity), 20, 400, text);
+        int textHeight = 75;
+        int topPadding = 175;
+
+        canvas.drawText("Normal: " + Integer.toString(highScore), 20, topPadding + (75 * 0), text);
+        canvas.drawText("Lead: " + Integer.toString(highScoreLead), 20, topPadding + (75 * 1), text);
+        canvas.drawText("Gravity: " + Integer.toString(highScoreGravity), 20, topPadding + (75 * 2), text);
+        canvas.drawText("Moon: " + Integer.toString(highScoreMoon), 20, topPadding + (75 * 3), text);
+        canvas.drawText("Glitch: " + Integer.toString(highScoreGlitch), 20, topPadding + (75 * 4), text);
+        canvas.drawText("Heart: " + Integer.toString(highScoreHeart), 20, topPadding + (75 * 5), text);
+        canvas.drawText("Toxic: " + Integer.toString(highScoreToxic), 20, topPadding + (75 * 6), text);
+
+        canvas.drawText("Void: " + Integer.toString(highScoreVoid), 20, topPadding + (75 * 7), text);
+        canvas.drawText("Light: " + Integer.toString(highScoreLight), 20, topPadding + (75 * 8), text);
+        canvas.drawText("Quantum: " + Integer.toString(highScoreQuantum), 20, topPadding + (75 * 9), text);
+        canvas.drawText("Picasso: " + Integer.toString(highScorePicasso), 20, topPadding + (75 * 10), text);
+        canvas.drawText("Glider: " + Integer.toString(highScoreGlider), 20, topPadding + (75 *11), text);
+        canvas.drawText("Magic: " + Integer.toString(highScoreMagic), 20, topPadding + (75 * 12), text);
+        canvas.drawText("Magnet: " + Integer.toString(highScoreMagnet), 20, topPadding + (75 * 13), text);
+        canvas.drawText("Abyss: " + Integer.toString(highScoreAbyss), 20, topPadding + (75 * 14), text);
 
         backButton.draw(canvas);
     }

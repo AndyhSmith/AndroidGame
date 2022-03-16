@@ -41,11 +41,18 @@ public class Achievement {
         textColor.setColor(ContextCompat.getColor(context, R.color.white));
         textColor.setTypeface(ResourcesCompat.getFont(context, R.font.vt323));
         textColor.setTextSize(50);
+
+
     }
 
     public void complete() {
         this.complete = true;
         this.background.setColor(ContextCompat.getColor(context, R.color.teal_200));
+    }
+
+    public void uncomplete() {
+        this.complete = false;
+        this.background.setColor(ContextCompat.getColor(context, R.color.black));
     }
 
     public void draw(Canvas canvas) {
