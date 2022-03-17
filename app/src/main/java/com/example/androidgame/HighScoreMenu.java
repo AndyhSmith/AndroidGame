@@ -30,7 +30,7 @@ public class HighScoreMenu {
 
     public void draw(Canvas canvas, int highScore, int highScoreLead, int highScoreGravity, int highScoreMoon, int highScoreGlitch, int highScoreHeart, int highScoreToxic,
                      int highScoreVoid, int highScoreLight, int highScoreQuantum, int highScorePicasso, int highScoreGlider,
-                     int highScoreMagic, int highScoreMagnet, int highScoreAbyss) {
+                     int highScoreMagic, int highScoreMagnet, int highScoreAbyss, int highScoreTotal) {
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
         int color = ContextCompat.getColor(context, R.color.text);
@@ -59,6 +59,8 @@ public class HighScoreMenu {
         canvas.drawText("Magic: " + Integer.toString(highScoreMagic), 20, topPadding + (75 * 12), text);
         canvas.drawText("Magnet: " + Integer.toString(highScoreMagnet), 20, topPadding + (75 * 13), text);
         canvas.drawText("Abyss: " + Integer.toString(highScoreAbyss), 20, topPadding + (75 * 14), text);
+
+        canvas.drawText("High Score Total: " + Integer.toString(highScoreTotal), 20, topPadding + (75 * 15), text);
 
         backButton.draw(canvas);
     }

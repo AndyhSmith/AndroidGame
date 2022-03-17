@@ -104,16 +104,16 @@ public class Item {
 
     public void update() {
         visableTime += 1;
-        if (moving && visableTime > 10 * 60) {
+        if (moving && visableTime > 5 * 60) {
             counter += 1;
         }
         if (Math.random() <= .001) {
             moving = true;
         }
-        if (counter > 5 * 60) {
+        if (counter > 3 * 60) {
             counter = 0;
             visableTime = 0;
-            if (Math.random() > .5) {
+            if (Math.random() > .2) {
                 randomLocation(true);
             }
             else {

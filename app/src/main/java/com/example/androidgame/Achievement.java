@@ -20,6 +20,7 @@ public class Achievement {
     private Paint background;
     private Paint backgroundComplete;
     private Paint textColor;
+    private Paint titleColor;
 
     private boolean complete;
 
@@ -40,14 +41,19 @@ public class Achievement {
         textColor = new Paint();
         textColor.setColor(ContextCompat.getColor(context, R.color.white));
         textColor.setTypeface(ResourcesCompat.getFont(context, R.font.vt323));
-        textColor.setTextSize(50);
+        textColor.setTextSize(45);
+
+        titleColor = new Paint();
+        titleColor.setColor(ContextCompat.getColor(context, R.color.white));
+        titleColor.setTypeface(ResourcesCompat.getFont(context, R.font.vt323));
+        titleColor.setTextSize(55);
 
 
     }
 
     public void complete() {
         this.complete = true;
-        this.background.setColor(ContextCompat.getColor(context, R.color.teal_200));
+        this.background.setColor(ContextCompat.getColor(context, R.color.green));
     }
 
     public void uncomplete() {
@@ -57,7 +63,7 @@ public class Achievement {
 
     public void draw(Canvas canvas) {
         canvas.drawRect((float) padding, (float) positionY, (float)(width - (padding * 2)), (float) (positionY + 100), background);
-        canvas.drawText(title, (float) (padding * 2), (float) positionY + 40, textColor);
+        canvas.drawText(title, (float) (padding * 2), (float) positionY + 45, titleColor);
         canvas.drawText(description, (float) (padding * 2), (float)positionY + 85, textColor);
     }
 

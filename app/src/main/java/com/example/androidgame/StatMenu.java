@@ -61,24 +61,24 @@ public class StatMenu {
 
         yellowBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardyellowballoon280x375), "Yellow");
         glitchBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardglitch280x376), "Glitch");
-        gravityBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardgravity280x375), "Gravity");
+        moonBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmoon280x376), "Moon");
 
-        moonBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmoon280x376), "Moon");
-        leadBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardlead280x376), "Lead");
-        heartBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardheart289x376), "Heart");
+        leadBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardlead280x376), "Lead");
+        gravityBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardgravity280x375), "Gravity");
+        radiationBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardradiation280x376), "Toxic");
 
 
         // page 2
-        radiationBalloon  = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardradiation280x376), "Toxic");
-        voidBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardvoid280x376), "Void");
-        lightBalloon   = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardlight280x376), "Light");
+        lightBalloon  = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardlight280x376), "Light");
+        heartBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardheart289x376), "Heart");
+        magnetBalloon   = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmagnet280x376), "Magnet");
 
-        quantumBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardquantum280x376), "Quantum");
-        picassoBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardpicasso280x376), "Picasso");
-        gliderBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardglider280x376), "Glider");
+        gliderBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardglider280x376), "Glider");
+        quantumBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardquantum280x376), "Quantum");
+        magicBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmagic280x376), "Magic");
 
-        magicBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmagic280x376), "Magic");
-        magnetBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardmagnet280x376), "Magnet");
+        picassoBalloon = new Card (context, (width / 2) - padding - (cardWidth / 2) - cardWidth, startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardpicasso280x376), "Picasso");
+        voidBalloon = new Card (context, (width / 2) - (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardvoid280x376), "Void");
         abyssBalloon = new Card (context, (width / 2) + padding + (cardWidth / 2), startHeight + cardHeight + padding + cardHeight + padding, cardWidth, cardHeight, context.getResources().getDrawable(R.drawable.cardabyss280x376), "Abyssal");
 
         // Water balloon moving coins as bubbles
@@ -142,13 +142,14 @@ public class StatMenu {
             yellowBalloon.draw(canvas);
             leadBalloon.draw(canvas);
             gravityBalloon.draw(canvas);
-
+            radiationBalloon.draw(canvas);
             moonBalloon.draw(canvas);
             glitchBalloon.draw(canvas);
-            heartBalloon.draw(canvas);
+
         }
         else if (currentPage == 2) {
-            radiationBalloon.draw(canvas);
+            heartBalloon.draw(canvas);
+
             voidBalloon.draw(canvas);
             lightBalloon.draw(canvas);
             quantumBalloon.draw(canvas);
@@ -298,7 +299,7 @@ public class StatMenu {
         return pressed;
     }
     public boolean checkPressHeartBalloonCard(float x, float y) {
-        if (currentPage != 1) {
+        if (currentPage != 2) {
             return false;
         }
         Boolean pressed = heartBalloon.checkPress(x, y);
@@ -311,7 +312,7 @@ public class StatMenu {
 
 
     public boolean checkPressRadiationBalloonCard(float x, float y) {
-        if (currentPage != 2) {
+        if (currentPage != 1) {
             return false;
         }
         Boolean pressed = radiationBalloon.checkPress(x, y);

@@ -49,6 +49,8 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private int height;
     private int width;
 
+
+
     private Paint paintScore;
     private Paint text;
     private int score;
@@ -81,7 +83,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private SettingsMenu settingsMenu;
 
     private Background background;
-    private CloudFactory cloudFactory;
+
 
     private String balloonType;
 
@@ -96,7 +98,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     private SharedPreferences sharedPref;
     private MediaPlayer click;
     private MediaPlayer music1;
-
+    boolean showHelp;
 
 
 
@@ -109,6 +111,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                 if (screen == "start") {
                     if (startMenu.checkPressStartButton(event.getX(), event.getY())) {
                         playClick();
+                        showHelp = true;
                         screen = "play";
                         return true;
                     }
@@ -134,6 +137,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
                 else if (screen == "play") {
+                    showHelp = false;
                     Log.d("quickAim", Boolean.toString(quickAim));
                     if (quickAim) {
                         player.updatePosition((double) event.getX(), (double) event.getY());
@@ -417,7 +421,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         this.sharedPref = sharedPref;
 
-
+        showHelp = true;
         settingsPaint = new Paint();
         settingsPaint.setColor(ContextCompat.getColor(getContext(), R.color.black));
         settingsPaint.setTextSize(30);
@@ -434,8 +438,8 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         surfaceHolder.addCallback(this);
 
         gameLoop = new GameLoop(this, surfaceHolder);
-        ball = new Ball(getContext(), width / 2,100,50, height);
-        player = new Player(getContext(), width / 2, height - 100, 100);
+        ball = new Ball(getContext(), width / 2,100,50, height, width);
+        player = new Player(getContext(), width / 2, height - 150, 100);
         point = new Collectible(getContext(), width, height, 30);
         itemBoost = new Item(getContext(), width, height, 30);
 
@@ -451,7 +455,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         screen = "start";
         background = new Background(getContext(), screen, width, height);
 
-        cloudFactory = new CloudFactory(getContext(), width, height);
+
 
         paintScore = new Paint();
         int colorScore = ContextCompat.getColor(getContext(), R.color.black);
@@ -518,6 +522,57 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public int getLargestHighScore() {
+        int m = 0;
+        if (highScore > m) {
+            m = highScore;
+        }
+        if (highScoreLead > m) {
+            m = highScoreLead;
+        }
+        if (highScoreGravity > m) {
+            m = highScoreGravity;
+        }
+        if (highScoreMoon > m) {
+            m = highScoreMoon;
+        }
+        if (highScoreGlitch > m) {
+            m = highScoreGlitch;
+        }
+        if (highScoreHeart > m) {
+            m = highScoreHeart;
+        }
+        if (highScoreToxic > m) {
+            m = highScoreToxic;
+        }
+        if (highScoreVoid > m) {
+            m = highScoreVoid;
+        }
+
+        if (highScoreLight > m) {
+            m = highScoreLight;
+        }
+        if (highScoreQuantum > m) {
+            m = highScoreQuantum;
+        }
+        if (highScorePicasso > m) {
+            m = highScorePicasso;
+        }
+        if (highScoreGlider > m) {
+            m = highScoreGlider;
+        }
+        if (highScoreMagic > m) {
+            m = highScoreMagic;
+        }
+        if (highScoreMagnet > m) {
+            m = highScoreMagnet;
+        }
+        if (highScoreAbyss > m) {
+            m = highScoreAbyss;
+        }
+        return m;
+    }
+
     public void endBackgroundMusic() {
         music1.pause();
     }
@@ -543,46 +598,49 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
 
 
         super.draw(canvas);
-        background.draw(canvas, balloonType);
+        background.draw(canvas, balloonType, ball.getY());
 
 //        drawUPS(canvas);
 //        drawFPS(canvas);
 
 
         if (screen == "play") {
-            if (balloonType != "moon") {
-                cloudFactory.draw(canvas);
-            }
-            player.draw(canvas);
+            drawScore(canvas);
+            point.draw(canvas);
             ball.draw(canvas, balloonType);
+
+            player.draw(canvas);
+
             if (extraLife) {
                 life.draw(canvas);
             }
 
 
-            point.draw(canvas);
             itemBoost.draw(canvas);
-            drawScore(canvas);
+
 
             if (showInfo) {
                 canvas.drawText("Gravity: " + Integer.toString((int)(ball.getGravity() * 100)) + "%", 10, 30, settingsPaint);
                 canvas.drawText("Streak: " + Integer.toString((int)(ball.getStreak())), 10, 60, settingsPaint);
             }
 
-        }
-        else if (screen == "start") {
-            if (balloonType != "moon") {
-                cloudFactory.draw(canvas);
+            if (showHelp && (balloonType =="red" || balloonType == "purple" || balloonType == "teal" || balloonType == "yellow")) {
+                canvas.drawText("Tap and drag to control the platform", (float) (width / 2), (float) height - 80, text);
             }
 
+
+        }
+        else if (screen == "start") {
+
+
             startMenu.draw(canvas);
-            canvas.drawText("High Score: " + Integer.toString((int) highScore), (float) (width / 2), (float) 425, text);
+            canvas.drawText("High Score: " + Integer.toString((int) getLargestHighScore()), (float) (width / 2), (float) 510, text);
 
 
         }
         else if (screen == "highscore") {
             highScoreMenu.draw(canvas, highScore, highScoreLead, highScoreGravity, highScoreMoon, highScoreGlitch, highScoreHeart, highScoreToxic,
-                    highScoreVoid, highScoreLight, highScoreQuantum, highScorePicasso, highScoreGlider, highScoreMagic, highScoreMagnet, highScoreAbyss);
+                    highScoreVoid, highScoreLight, highScoreQuantum, highScorePicasso, highScoreGlider, highScoreMagic, highScoreMagnet, highScoreAbyss, calcTotalScore());
         }
         else if (screen == "stat") {
             statMenu.draw(canvas);
@@ -661,6 +719,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
+
         if (achHandfulOfPoints) {
             achievementsMenu.completeHandfulOfPoints();
             statMenu.unlockGlitch();
@@ -700,6 +759,10 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         boolean achMystical = sharedPref.getBoolean("achMystical", false);
         boolean achForces = sharedPref.getBoolean("achForces", false);
         boolean achTheCreature = sharedPref.getBoolean("achTheCreature", false);
+
+        boolean achTrueExpert = sharedPref.getBoolean("achTrueExpert", false);
+
+
         if (achEndOfReality) {
             achievementsMenu.completeEndOfReality();
             statMenu.unlockVoid();
@@ -731,6 +794,9 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         if (achTheCreature) {
             achievementsMenu.completeTheCreature();
             statMenu.unlockAbyss();
+        }
+        if (achTrueExpert) {
+            achievementsMenu.completeTrueExpert();
         }
 
         sounds = sharedPref.getBoolean("sounds", true);
@@ -778,6 +844,10 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         editor.putBoolean("achForces", achievementsMenu.getForces());
         editor.putBoolean("achTheCreature", achievementsMenu.getTheCreature());
 
+        editor.putBoolean("achTrueExpert", achievementsMenu.getTrueExpert());
+
+
+
         editor.putBoolean("backgroundMusic", backgroundMusic);
         editor.putBoolean("sounds", sounds);
         editor.putBoolean("showInfo", showInfo);
@@ -791,23 +861,34 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                 highScoreVoid + highScoreLight + highScoreQuantum + highScorePicasso + highScoreGlider + highScoreMagic + highScoreMagnet + highScoreAbyss;
     }
 
+    public boolean checkTrueExpert() {
+        if (highScoreAbyss > Con.TRUE_EXPERT_THRESHOLD && highScoreMagnet > Con.TRUE_EXPERT_THRESHOLD && highScoreMagic > Con.TRUE_EXPERT_THRESHOLD &&
+        highScoreGlider > Con.TRUE_EXPERT_THRESHOLD && highScorePicasso > Con.TRUE_EXPERT_THRESHOLD && highScoreQuantum > Con.TRUE_EXPERT_THRESHOLD &&
+        highScoreLight > Con.TRUE_EXPERT_THRESHOLD && highScoreVoid > Con.TRUE_EXPERT_THRESHOLD && highScoreToxic > Con.TRUE_EXPERT_THRESHOLD &&
+        highScoreHeart > Con.TRUE_EXPERT_THRESHOLD && highScoreGlitch > Con.TRUE_EXPERT_THRESHOLD && highScoreMoon > Con.TRUE_EXPERT_THRESHOLD &&
+        highScoreGravity > Con.TRUE_EXPERT_THRESHOLD && highScoreLead > Con.TRUE_EXPERT_THRESHOLD && highScore > Con.TRUE_EXPERT_THRESHOLD) {
+            return true;
+        }
+        return false;
+    };
+
     public void update() {
 
         background.update();
-        cloudFactory.update();
+
         message.update();
 
         if (screen == "play") {
             player.update();
-            ball.update(balloonType, sounds);
+            ball.update(balloonType, sounds, width);
             itemBoost.update();
 
-            if (balloonType == "radiation") {
-                point.update(ball.getXSpeed(), ball.getYSpeed(), ball.getPositionX(), ball.getPositionY(), width, height);
-            }
-            ball.checkCollision(player, sounds);
+
+            point.update(ball.getXSpeed(), ball.getYSpeed(), ball.getPositionX(), ball.getPositionY(), width, height, balloonType);
+
+            ball.checkCollision(player, sounds, balloonType);
             ball.checkCollisionItemBoost(itemBoost, sounds);
-            if (ball.checkCollision(point, sounds)) {
+            if (ball.checkCollision(point, sounds, balloonType)) {
                 this.score += 1;
                 if (this.score > this.highScore && (balloonType == "red" || balloonType == "purple" || balloonType == "teal" || balloonType == "yellow")) {
                     this.highScore = score;
@@ -946,6 +1027,12 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                         statMenu.unlockAbyss();
                     }
                 }
+                if (!achievementsMenu.getTrueExpert()) {
+                    if (checkTrueExpert()) {
+                        message.postMessage("Achievement Complete: True Expert");
+                        achievementsMenu.completeTrueExpert();
+                    }
+                }
             }
 
             if (ball.checkOutOfBounds(width, height, extraLife, point, balloonType, sounds)) {
@@ -956,8 +1043,6 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 else {
                     this.screen = "start";
-
-
                     this.score = 0;
                     saveData();
                 }

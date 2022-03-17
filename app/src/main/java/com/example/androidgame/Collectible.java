@@ -27,6 +27,10 @@ public class Collectible {
     private double imageWidth;
     private double imageHeight;
     private Drawable image;
+    private Drawable imageCoin;
+    private Drawable imageCorrupted;
+
+    private boolean corrupted;
 
 
     public Collectible (Context context, int width, int height, double radius) {
@@ -42,7 +46,10 @@ public class Collectible {
 
         this.radius = radius;
 
-        image = context.getResources().getDrawable(R.drawable.coin120x120);
+        imageCoin = context.getResources().getDrawable(R.drawable.coin120x120);
+        imageCorrupted = context.getResources().getDrawable(R.drawable.corruptedcoin120x120);
+        image = imageCoin;
+
         imageWidth = 120 * .75;
         imageHeight = 120 * .75;
 
@@ -52,17 +59,23 @@ public class Collectible {
         paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.score);
         paint.setColor(color);
+        corrupted = false;
     }
 
     public void randomLocation() {
         this.positionX = Math.random() * (width - (leftRightPadding * 2)) + leftRightPadding;
         this.positionY = Math.random() * (height /2) + topPadding;
+
+        corrupted = false;
+        image = imageCoin;
+
         Rect imageBounds = new Rect();
         imageBounds.left = (int) (positionX - (imageWidth / 2));
         imageBounds.top = (int) (positionY - (imageHeight / 2));
         imageBounds.right = (int) (positionX + (imageWidth / 2));
         imageBounds.bottom = (int) (positionY + (imageHeight / 2));
         image.setBounds(imageBounds);
+
     }
 
     public void draw(Canvas canvas) {
@@ -76,24 +89,33 @@ public class Collectible {
         image.draw(canvas);
     }
 
-    public void update(double xSpeed, double ySpeed, double posX, double posY, int width, int height) {
-        double d = Math.pow(this.positionX - posX, 2) + Math.pow(this.positionY - posY, 2);
-        if (d < 60000) {
-            int speed = 5;
-            if (this.positionX > 0 + radius && this.positionX < width - radius) {
-//                positionX += xSpeed / 2;
-                if (this.positionX > posX) {
-                    this.positionX += speed;
-                } else if (this.positionX < posX) {
-                    this.positionX -= speed;
+    public void update(double xSpeed, double ySpeed, double posX, double posY, int width, int height, String balloonType) {
+        if (balloonType == "radiation" || balloonType == "magnet") {
+
+            double d = Math.pow(this.positionX - posX, 2) + Math.pow(this.positionY - posY, 2);
+            if (d < 60000) {
+                int speed = 0;
+                if (balloonType == "radiation") {
+                    speed = 5;
+                } else if (balloonType == "magnet"){
+                    speed = -3;
                 }
-            }
-            if (this.positionY > 0 + radius && this.positionY < height - radius - 60) {
+
+                if (this.positionX > 0 + radius && this.positionX < width - radius) {
+//                positionX += xSpeed / 2;
+                    if (this.positionX > posX) {
+                        this.positionX += speed;
+                    } else if (this.positionX < posX) {
+                        this.positionX -= speed;
+                    }
+                }
+                if (this.positionY > 0 + radius && this.positionY < height - radius - 60) {
 //                positionY += ySpeed / 2;
-                if (this.positionY > posY) {
-                    this.positionY += speed;
-                } else if (this.positionY < posY) {
-                    this.positionY -= speed;
+                    if (this.positionY > posY) {
+                        this.positionY += speed;
+                    } else if (this.positionY < posY) {
+                        this.positionY -= speed;
+                    }
                 }
             }
         }
@@ -110,5 +132,14 @@ public class Collectible {
 
     public double getRadius() {
         return this.radius;
+    }
+
+    public void corrupt() {
+        image = imageCorrupted;
+        this.corrupted = true;
+    }
+
+    public boolean getCorrupted() {
+        return corrupted;
     }
 }

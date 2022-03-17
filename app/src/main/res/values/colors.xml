@@ -19,6 +19,25 @@
 
     <color name="cardbackground">#EFEBD6</color>
 
+    <color name="lightblue">#55abc7</color>
+    <color name="pink">#e79bbf</color>
+    <color name="green">#028a0f</color>
+
+    <color name="greentoxic1">#98D023</color>
+    <color name="greentoxic2">#FBFC38</color>
+    <color name="greentoxic3">#C8E44C</color>
+    <color name="darkgrey">#0A0A0A</color>
+    <color name="lightgrey">#484846</color>
+    <color name="orange">#EF6504</color>
+    <color name="darkblue">#2D4D6F</color>
+    <color name="rainblue">#AFC3CC</color>
+    <color name="purple">#A44AA5</color>
+
+
+
+
+
+
 
 
 </resources>

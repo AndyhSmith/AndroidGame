@@ -31,6 +31,8 @@ public class AchievementsMenu {
     private Achievement forces;
     private Achievement theCreature;
 
+    private Achievement trueExpert;
+
     private int currentPage;
     private int totalPages;
 
@@ -56,26 +58,34 @@ public class AchievementsMenu {
         previousPage = new Button(context, 128, 320, width / 4, height -300, "<-", 50);
 
         backButton = new Button(context, 128, 320, width / 2, height -150, "Back", 50);
-        achievementHandfulOfPoints = new Achievement(context, "Handful Of Points - Unlocks Glitch Balloon", "Earn 5 points in one round", startHeight, width);
-        achievementOffTheTop = new Achievement(context, "Off The Top - Unlocks Gravity Balloon", "Move the balloon off the top of the screen", startHeight + (cardHeight + padding) * 1, width);
+
+
+        achievementHandfulOfPoints = new Achievement(context, "Handful Of Points - Unlocks Glitch Balloon", "Earn " + Con.GLITCH_THRESHOLD+ " points using any balloon", startHeight, width);
+        achievementFortnight = new Achievement(context, "Fortnight - Unlocks Moon Balloon", "Earn " + Con.MOON_THRESHOLD + " points using any balloon", startHeight + (cardHeight + padding) * 1, width);
         achievementMaxGravity = new Achievement(context, "Max Gravity - Unlocks Lead Balloon", "Reach maximum gravity", startHeight + (cardHeight + padding) * 2, width);
-        achievementTwoBirdsOneStone = new Achievement(context, "Three Birds One Stone ", "Get three points in one bounce", startHeight + (cardHeight + padding) * 3, width);
-        achievementBalloonMaster = new Achievement(context, "Balloon Master", "Unlock every balloon type", startHeight + (cardHeight + padding) * 4, width);
-        achievementFortnight = new Achievement(context, "Fortnight - Unlocks Moon Balloon", "Earn 24 points in one round", startHeight + (cardHeight + padding) * 5, width);
-
-        achievementExtraLife = new Achievement(context, "Extra Life - Unlocks Heart Balloon", "Earn 100 points in one round", startHeight + (cardHeight + padding) * 6, width);
-        achievementGlitchFallout = new Achievement(context, "Glitch Fallout - Unlocks Toxic Balloon", "Earn 25 points using the glitch balloon", startHeight + (cardHeight + padding) * 7, width);
-
-        endOfReality = new Achievement(context, "End Of Reality - Unlocks Void Balloon", "Earn a high score of 150 points", startHeight + (cardHeight + padding) * 8, width);
-        moonlight = new Achievement(context, "Moon Light - Unlocks Light Balloon", "Earn 50 points using the moon balloon", startHeight + (cardHeight + padding) * 9, width);
+        achievementOffTheTop = new Achievement(context, "Off The Top - Unlocks Gravity Balloon", "Move the balloon off the top of the screen", startHeight + (cardHeight + padding) * 3, width);
+        achievementGlitchFallout = new Achievement(context, "Glitch Fallout - Unlocks Toxic Balloon", "Earn " + Con.FALLOUT_THRESHOLD + " points using the glitch balloon", startHeight + (cardHeight + padding) * 4, width);
+        moonlight = new Achievement(context, "Moon Light - Unlocks Light Balloon", "Earn " + Con.LIGHT_THRESHOLD + " points using the moon balloon", startHeight + (cardHeight + padding) * 5, width);
+        achievementExtraLife = new Achievement(context, "Extra Life - Unlocks Heart Balloon", "Earn " + Con.HEART_THRESHOLD + " points using any balloon", startHeight + (cardHeight + padding) * 6, width);
+        forces = new Achievement(context, "Forces - Unlocks Magnetic Balloon", "Earn " + Con.MAGNET_THRESHOLD + " points using the lead balloon", startHeight + (cardHeight + padding) * 7, width);
+        exodus = new Achievement(context, "Exodus - Unlocks Glider Balloon", "Earn " + Con.GLIDER_THRESHOLD + " points using the fallout balloon", startHeight + (cardHeight + padding) * 8, width);
+        splittingLight = new Achievement(context, "Splitting Light - Unlocks Quantum Balloon", "Earn "+ Con.QUANTUM_THRESHOLD +" points using the light balloon", startHeight + (cardHeight + padding) * 9, width);
 
 
-        splittingLight = new Achievement(context, "Splitting Light - Unlocks Quantum Balloon", "Earn 25 points using the light balloon", startHeight + (cardHeight + padding) * 0, width);
-        visionary = new Achievement(context, "Visionary - Unlocks Picasso's Balloon", "Earn 600 points in total high scores", startHeight + (cardHeight + padding) * 1, width);
-        exodus = new Achievement(context, "Exodus - Unlocks Glider Balloon", "Earn 25 points using the fallout balloon", startHeight + (cardHeight + padding) * 2, width);
-        mystical = new Achievement(context, "Mystical - Unlocks Magic Balloon", "Earn 25 points using the Quantum balloon", startHeight + (cardHeight + padding) * 3, width);
-        forces = new Achievement(context, "Forces - Unlocks Magnetic Balloon", "Earn 50 points using the lead balloon", startHeight + (cardHeight + padding) * 4, width);
-        theCreature = new Achievement(context, "The Creature - Unlocks Abyssal Balloon", "Earn 50 points using the void balloon", startHeight + (cardHeight + padding) * 5, width);
+        mystical = new Achievement(context, "Mystical - Unlocks Magic Balloon", "Earn "+Con.MAGIC_THRESHOLD+" points using the quantum balloon", startHeight + (cardHeight + padding) * 0, width);
+        visionary = new Achievement(context, "Visionary - Unlocks Picasso's Balloon", "Earn "+ Con.PICASSO_THRESHOLD +" points in total high scores", startHeight + (cardHeight + padding) * 1, width);
+        endOfReality = new Achievement(context, "End Of Reality - Unlocks Void Balloon", "Earn "+Con.VOID_THRESHOLD+" points", startHeight + (cardHeight + padding) * 2, width);
+        theCreature = new Achievement(context, "The Creature - Unlocks Abyssal Balloon", "Earn "+Con.ABYSS_THRESHOLD+" points using the void balloon", startHeight + (cardHeight + padding) * 3, width);
+
+
+        achievementTwoBirdsOneStone = new Achievement(context, "Three Birds One Stone ", "Get three points in one bounce", startHeight + (cardHeight + padding) * 4, width);
+        achievementBalloonMaster = new Achievement(context, "Balloon Master", "Unlock every balloon type", startHeight + (cardHeight + padding) * 5, width);
+        trueExpert = new Achievement(context, "True Expert", "Earn "+Con.TRUE_EXPERT_THRESHOLD+" with every balloon type", startHeight + (cardHeight + padding) * 6, width);
+
+
+
+
+
 
 
 
@@ -104,22 +114,28 @@ public class AchievementsMenu {
             achievementHandfulOfPoints.draw(canvas);
             achievementOffTheTop.draw(canvas);
             achievementMaxGravity.draw(canvas);
-            achievementTwoBirdsOneStone.draw(canvas);
-            achievementBalloonMaster.draw(canvas);
+
             achievementFortnight.draw(canvas);
             achievementExtraLife.draw(canvas);
             achievementGlitchFallout.draw(canvas);
-            endOfReality.draw(canvas);
+
             moonlight.draw(canvas);
+            splittingLight.draw(canvas);
+
+            exodus.draw(canvas);
+
+            forces.draw(canvas);
+
         }
 
         if (currentPage == 2) {
-            splittingLight.draw(canvas);
-            visionary.draw(canvas);
-            exodus.draw(canvas);
-            mystical.draw(canvas);
-            forces.draw(canvas);
+            endOfReality.draw(canvas);
             theCreature.draw(canvas);
+            trueExpert.draw(canvas);
+            mystical.draw(canvas);
+            visionary.draw(canvas);
+            achievementTwoBirdsOneStone.draw(canvas);
+            achievementBalloonMaster.draw(canvas);
         }
 
 
@@ -196,6 +212,10 @@ public class AchievementsMenu {
         theCreature.complete();
     }
 
+    public void completeTrueExpert() {
+        trueExpert.complete();
+    }
+
 
 
 
@@ -247,6 +267,9 @@ public class AchievementsMenu {
     }
     public boolean getTheCreature() {
         return theCreature.getCompleted();
+    }
+    public boolean getTrueExpert() {
+        return trueExpert.getCompleted();
     }
 
     public void reset() {

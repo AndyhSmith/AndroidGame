@@ -40,7 +40,7 @@ public class StartMenu {
         startButton = new ButtonImage(context, 116, 424, width / 2, height / 2, startImage);
 
 
-        image = context.getResources().getDrawable(R.drawable.title810x162);
+        image = context.getResources().getDrawable(R.drawable.title810x306);
         image.getBounds();
 
     }
@@ -56,9 +56,9 @@ public class StartMenu {
 
         Rect imageBounds = new Rect();
         imageBounds.left = (int) (width/2 - 405);
-        imageBounds.top = (int) (200);
+        imageBounds.top = (int) (150);
         imageBounds.right = (int) (width/2 + 405);
-        imageBounds.bottom = (int) (362);
+        imageBounds.bottom = (int) (456);
 
         image.setBounds(imageBounds);
         image.draw(canvas);
